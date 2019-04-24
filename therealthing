@@ -1,0 +1,99 @@
+/* function prototypes */
+int rotat_encrypt(char *input, char *output, int key)
+int rotat_decrypt(char *input, char *output, int key)
+
+
+//need to do sub cipher
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> //string library
+#include <math.h> //math library
+
+/*code to carry out functions*/
+int main() {
+char message[100], ch; //message string
+    int key; //key is the amount the cipher is rotated
+    char user_input; 
+    printf("Choose to encrypt/decrypt a rotation/subsitution cipher"); //determines if it is to encrypt or decrypt
+    scanf(%c, &user_input);
+   
+    switch(action) {
+        case rotencrypt : //rotation encryption case
+            printf("Please enter encryption key:");
+            scanf(%d, &key);
+            int rotat_encrypt(input, output, key);
+            break;
+        case rotdecrypt : //rotation decryption case
+            printf("What is the key?")
+            scanf(%d, &key);
+            int rotat_decrypt(input, output, key);
+            break;
+            
+        case subencrypt: //substitution encryption case
+        
+            break;
+        
+        case subdecrypt: //subsitution decryption case
+            
+            break;
+        default :
+            printf("Please enter a valid option");
+            break;
+    }
+    return 0;
+}
+
+/*function definitions*/
+int rotat_ecrypt(char *input, char *output, int key) { //rotation encryption definition
+    char message[100], ch; //message string
+	int i, key;
+	
+	printf("Enter a message to encrypt: ");
+	gets(message);
+	
+	for(i = 0; message[i] != '\0'; i++){
+		ch = message[i];
+		if(ch >= 'A' && ch <= 'Z'){ //rotation for upper case letters
+			ch = ch + key;
+			
+			if(ch > 'Z'){
+				ch = ch % 26 + 'A'; //the actual rotation
+			}
+			
+			message[i] = ch;
+		}
+		
+		else if(ch < 0) { //impossible to get negative but helps just in case
+		    c = ((temp + 26)%26 + 'A');
+		}
+		printf("Encrypted message: %s", message); //prints encrypted message
+		
+	}
+	
+	
+int rotat_decrypt(char *input, char *output, int key) { //rotation decryption definition
+    char message[100], ch; //message string
+	int i, key;
+	
+	printf("Enter a message to decrypt: ");
+	gets(message);
+	
+	for(i = 0; message[i] != '\0'; i++){
+		ch = message[i];
+		if(ch >= 'A' && ch <= 'Z'){ //rotation for upper case letters
+			ch = ch + key;
+			
+			if(ch > 'Z'){
+				ch = ch % 26 + 'A'; //the actual rotation
+			}
+			
+			message[i] = ch;
+		}
+		
+		else if(ch < 0) { //impossible to get negative but helps just in case
+		    c = ((temp + 26)%26 + 'A');
+		}
+		printf("Decrypted message: %s", message); //prints encrypted message
+		
+	}
