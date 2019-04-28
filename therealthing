@@ -3,7 +3,7 @@ int rotat_encrypt(char *input, char *output, int key)
 int rotat_decrypt(char *input, char *output, int key)
 
 int sub_encrypt(char *input, char *output, char *key);
-int sub_decrypt(char *input, char *output, char *key);
+int sub_decrypt(char *input, char *output, char *key, char*real);
 
 
 #include <stdio.h>
@@ -33,10 +33,11 @@ char message[100], ch; //message string
             
         case subencrypt: //substitution encryption case
             printf("Please enter encryption key: \n");
+            int sub_encrypt(input, output, key);
             break;
         
         case subdecrypt: //subsitution decryption case
-            
+            sub_decrypt(input, output, )
             break;
         default :
             printf("Please enter a valid option");
@@ -140,6 +141,34 @@ int sub_encrypt(char *input, char *output, char *key) {
 
 /*decrypt message*/
 int sub_decrypt(char *input, char *output, char *key){
+    char m, key;
+    FILE *message; //original message
+    FILE *demessage; //decrypted message
+    message = fopen(input, "r");
+    while (input == NULL) { //if input is invalid
+        perror("fopen()");
+        return 0;
+        }
+    demessage = fopen(output, "w");
+    while (demessage == NULL){ //if input is invalid
+        perror("fopen()");
+        return 0;
+        }
+    while (fscanf(message, "%c", &m) == 1) { //if scan successful
+        if (m >= 'A' && m <= 'Z') { //ensures the message is between roman characters
+            char *temp;
+            int i;
+            temp = strchr(key, m); //strchr function returns pointer to m 
+            i = (int)(temp - key); //character pointer minus - pointer = index of character
+            m = real[i] // use alternate alphabet as key
+        }
+        fprintf(output, "%c", m); //prints file
+    }
+    /* close files */
+    fclose(input);
+    fclose(output);
+    
+    /* backup decrypt code in case
     char *message, *demessage; //demessage is decrypted message
     int *key, i;
     for (i=0; emessage[i] != NULL; i++) {
@@ -174,7 +203,7 @@ int sub_decrypt(char *input, char *output, char *key){
     demessage [i] = '\0';
     printf("Decrypted message is:");
     for (i = 0; demessage[i] != NULL; i++) {
-        printf("%c", demessage[i]);
+        printf("%c", demessage[i]);*/
     }
     return 0;
     }
