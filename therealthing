@@ -1,6 +1,6 @@
 /* function prototypes */
-int rotat_encrypt(char *input, char *output, int key)
-int rotat_decrypt(char *input, char *output, int key)
+int rotat_encrypt(char *input, char *output, int *key);
+int rotat_decrypt(char *input, char *output, int *key);
 
 int sub_encrypt(char *input, char *output, char *key);
 int sub_decrypt(char *input, char *output, char *key, char*real);
@@ -13,31 +13,31 @@ int sub_decrypt(char *input, char *output, char *key, char*real);
 
 /*code to carry out functions*/
 int main() {
-char message[100], ch; //message string
+char *message[100], ch; //message string
     char user_input; 
-    int i, key, *key;
-    printf("Choose to encrypt/decrypt a rotation/subsitution cipher"); //determines if it is to encrypt or decrypt
-    scanf(%c, &user_input);
+    int i, *key;
+    printf("Please choose an option:\n 1 for Rotation Encryption\n 2 for Rotation Decryption \n 3 for Substitution Encryption\n 4 for Substiution Decryption\n"); //determines if it is to encrypt or decrypt
+    scanf("%c", &user_input);
    
-    switch(action) {
-        case rotencrypt : //rotation encryption case
+    switch(user_input) {
+        case 1 : //rotation encryption case
             printf("Please enter encryption key:\n");
-            scanf(%d, &key);
+            scanf("%d", &key);
             int rotat_encrypt(input, output, key);
             break;
-        case rotdecrypt : //rotation decryption case
-            printf("What is the key?\n")
-            scanf(%d, &key);
+        case 2 : //rotation decryption case
+            printf("What is the key?\n");
+            scanf("%d", &key);
             int rotat_decrypt(input, output, key);
             break;
             
-        case subencrypt: //substitution encryption case
+        case 3: //substitution encryption case
             printf("Please enter encryption key: \n");
             int sub_encrypt(input, output, key);
             break;
         
-        case subdecrypt: //subsitution decryption case
-            sub_decrypt(input, output, )
+        case 4 : //subsitution decryption case
+            sub_decrypt(input, output, key);
             break;
         default :
             printf("Please enter a valid option");
@@ -47,14 +47,14 @@ char message[100], ch; //message string
 }
 
 /*function definitions*/
-int rotat_ecrypt(char *input, char *output, int key) { //rotation encryption definition
-    char message[100], ch; //message string
-	int i, key;
+int rotat_encrypt(char *input, char *output, int key) { //rotation encryption definition
+    char *message[100], ch; //message string
+	int i, *key;
 	
 	printf("Enter a message to encrypt: ");
 	gets(message);
 	
-	for(i = 0; message[i] != '\0'; i++){
+	for(i = 0; *message[i] != '\0'; i++){
 		ch = message[i];
 		if(ch >= 'A' && ch <= 'Z'){ //rotation for upper case letters
 			ch = ch + key;
@@ -75,8 +75,8 @@ int rotat_ecrypt(char *input, char *output, int key) { //rotation encryption def
 	
 	
 int rotat_decrypt(char *input, char *output, int key) { //rotation decryption definition
-    char message[100], ch; //message string
-	int i, key;
+    char *message[100], ch; //message string
+	int i, *key;
 	
 	printf("Enter a message to decrypt: ");
 	gets(message);
@@ -113,23 +113,22 @@ int sub_encrypt(char *input, char *output, char *key) {
         if(message[i] == ' ') { //no changes (key = 0)
             emassage[i++] = message[i];
         }
-        else {
-            if(message[i] >=48 && message[i] <= 57) { //actual ciper (k > 0)
+        if(message[i] >=48 && message[i] <= 57) { //actual ciper (k > 0)
                 message[i] = message[i] + key;
                 if (message[i] > 57) {
                     emessage[i++] = 48 + (message[i] - 58); //encryption code
                 }
                 else {
                     emessage[i++] = message[i];
-            else {
-                if(message[i] >=97 && message[i] <= 123) {
-                    message[i] = message[i] + key
-                    if(temp>122) {
-                        emessage[i++] = 97 + (message[i] - 123); //encryption code
-                    }
-                    else{
-                        emessage[i++] = message[i];
-                    }
+        else {
+            if(*message[i] >=97 && *message[i] <= 123) {
+                message[i] = message[i] + key;
+                if(temp>122) {
+                    emessage[i++] = 97 + (message[i] - 123); //encryption code
+                }
+            else{
+                emessage[i++] = message[i];
+                }
             }
         }
     printf("Encrypted message is:");
@@ -140,35 +139,7 @@ int sub_encrypt(char *input, char *output, char *key) {
     }
 
 /*decrypt message*/
-int sub_decrypt(char *input, char *output, char *key){
-    char m, key;
-    FILE *message; //original message
-    FILE *demessage; //decrypted message
-    message = fopen(input, "r");
-    while (input == NULL) { //if input is invalid
-        perror("fopen()");
-        return 0;
-        }
-    demessage = fopen(output, "w");
-    while (demessage == NULL){ //if input is invalid
-        perror("fopen()");
-        return 0;
-        }
-    while (fscanf(message, "%c", &m) == 1) { //if scan successful
-        if (m >= 'A' && m <= 'Z') { //ensures the message is between roman characters
-            char *temp;
-            int i;
-            temp = strchr(key, m); //strchr function returns pointer to m 
-            i = (int)(temp - key); //character pointer minus - pointer = index of character
-            m = real[i] // use alternate alphabet as key
-        }
-        fprintf(output, "%c", m); //prints file
-    }
-    /* close files */
-    fclose(input);
-    fclose(output);
-    
-    /* backup decrypt code in case
+int sub_decrypt(char *message, char *demessage, char *key){
     char *message, *demessage; //demessage is decrypted message
     int *key, i;
     for (i=0; emessage[i] != NULL; i++) {
@@ -176,7 +147,7 @@ int sub_decrypt(char *input, char *output, char *key){
         demessage[i++] = message[i];
         }
         else {
-            if message[i] >=48 && message[i] <= 75) {
+            if (message[i] >=48 && message[i] <= 75) {
                 message = message[i] - key;
                 if(temp < 48) {
                     demessage[i++] = 58 - (48 - message[i]);
@@ -203,7 +174,7 @@ int sub_decrypt(char *input, char *output, char *key){
     demessage [i] = '\0';
     printf("Decrypted message is:");
     for (i = 0; demessage[i] != NULL; i++) {
-        printf("%c", demessage[i]);*/
+        printf("%c", demessage[i]);
     }
     return 0;
     }
